@@ -16,6 +16,8 @@ projdir="$PWD/$1"
 if [ -d "$projdir" ]; then
    echo "The directory '$projdir' already exists"
    read -p "Do you want recreate the folder?(Y/N)" option
+   # Uppercasing
+   option=$(echo "$option"| tr "a-z" "A-Z")
    if [ "$option" == "N" ]; then
       echo "Nothing to do.Exiting!"
       exit  1
@@ -34,7 +36,17 @@ touch "$projdir/main.py"
 # 3. The readme.md
 touch "$projdir/README.md"
 echo "Scaffolding for $0 is ok! :) "
+ 
+read -p "Do you want to open VSCode pointing out for the new project?(Y/N)" option
+#Uppercasing
+option=$(echo "$option"| tr "a-z" "A-Z")
+if [ "$option" == "N" ]; then
+   echo "Ok. Finishing with success!"
+   exit  1
+else
+   echo "Opening in the VSCODE" 
+   #Moving to the project folder
+   code $projedir   
+fi
 
-echo "Opening in the VSCODE" 
-#Moving to the project folder
-code $projedir
+
